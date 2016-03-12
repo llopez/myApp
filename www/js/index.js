@@ -44,6 +44,18 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
+        setInterval(app.showCoords, 5000);
+
         console.log('Received Event: ' + id);
+    },
+    showCoords: function(){
+      navigator.geolocation.getCurrentPosition(function(p){
+        app.sendCoords(p.coords);
+        document.getElementById('coords').querySelector('.lat').innerText = p.coords.latitude;
+        document.getElementById('coords').querySelector('.lng').innerText = p.coords.longitude;
+      }, function(){});
+    },
+    sendCoords: function(coords){
+      console.log(coords.latitude + ", " + coords.longitude);
     }
 };
